@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>SOTA.ai — Your morning update</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%232f5fe0'/%3E%3Cpath d='M16 4 28 16 16 28 4 16z' fill='%23fff'/%3E%3Ccircle cx='16' cy='16' r='3.6' fill='%232f5fe0'/%3E%3C/svg%3E" />
+<style>
+:root{
+  --bg:#f4f5f7; --surface:#fff; --surface2:#fafbfc;
+  --border:#e2e5e9; --border2:#d3d8de;
+  --text:#1f2328; --text2:#59636e; --text3:#8b949e;
+  --accent:#2f5fe0; --pos:#1a7f37; --warn:#8a6100; --neg:#b32d38;
+  --r:6px; --mono:"Cascadia Mono",Consolas,monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--bg); color:var(--text);
+  font:13px/1.5 "Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;
+  height:100vh; display:flex; flex-direction:column; overflow:hidden;
+  -webkit-font-smoothing:antialiased;
+}
+.sprite{display:none}
+svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:1.6;
+    stroke-linecap:round;stroke-linejoin:round}
+
+header{
+  flex:none; padding:0 16px; height:40px;
+  display:flex; align-items:center; justify-content:space-between;
+  background:var(--surface); border-bottom:1px solid var(--border);
+}
+.app{display:flex;align-items:center;gap:8px}
+svg.mark{width:17px;height:17px;stroke:none;flex:none}
+.appname{font-weight:600;letter-spacing:-.01em}
+.tld{color:var(--text3);font-weight:400}
+.date{color:var(--text2);font-size:12px}
+
+.intro{flex:none;padding:15px 16px 13px;background:var(--surface);border-bottom:1px solid var(--border)}
+.intro h1{font-size:16px;font-weight:600;letter-spacing:-.015em}
+.intro p{color:var(--text2);font-size:12.5px;margin-top:2px}
+
+.body{flex:1;min-height:0;overflow-y:auto;padding:15px 16px}
+
+.sect{
+  font-size:10.5px;font-weight:600;letter-spacing:.04em;text-transform:uppercase;
+  color:var(--text3);margin:0 0 7px;
+}
+.sect:not(:first-child){margin-top:17px}
+
+.card{border:1px solid var(--border);border-radius:var(--r);background:var(--surface);overflow:hidden}
+.item{display:flex;gap:11px;padding:11px 13px;border-bottom:1px solid var(--border);
+      opacity:0;animation:fade .25s ease forwards}
+.item:last-child{border-bottom:none}
+@keyframes fade{to{opacity:1}}
+.item .ic{color:var(--accent);flex:none;display:flex;margin-top:1px}
+.item .txt{flex:1;min-width:0}
+.item h3{font-size:12.5px;font-weight:600}
+.item p{color:var(--text2);font-size:12px;margin-top:2px}
+.item .how{font-size:11.5px;color:var(--text3);margin-top:4px;display:flex;align-items:center;gap:5px}
+.item .how svg{width:12px;height:12px}
+
+.stats{display:grid;grid-template-columns:repeat(3,1fr);border:1px solid var(--border);
+       border-radius:var(--r);background:var(--surface);overflow:hidden}
+.stat{padding:11px 12px;border-right:1px solid var(--border)}
+.stat:last-child{border-right:none}
+.stat b{display:block;font-size:17px;font-weight:600;letter-spacing:-.02em}
+.stat span{color:var(--text3);font-size:10.5px;display:block;margin-top:1px}
+
+.ask{margin-top:16px;border:1px solid var(--border);border-radius:var(--r);
+     background:var(--surface);padding:12px 13px}
+.ask b{font-size:12.5px;display:block}
+.ask p{color:var(--text2);font-size:12px;margin-top:3px}
+.crossnote{display:flex;gap:11px;align-items:flex-start;margin-top:10px}
+.crossnote .ic{color:var(--accent);flex:none;display:flex;margin-top:1px}
+
+footer{
+  flex:none;height:52px;padding:0 16px;background:var(--surface);
+  border-top:1px solid var(--border);display:flex;align-items:center;
+  justify-content:space-between;gap:8px;
+}
+footer .meta{color:var(--text3);font-size:11px}
+.btns{display:flex;gap:8px}
+button{font:inherit;font-size:12.5px;cursor:pointer;padding:6px 15px;border-radius:var(--r);
+       border:1px solid var(--border2);background:var(--surface);color:var(--text);transition:.12s}
+button:hover{background:var(--surface2);border-color:var(--text3)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
+button.primary:hover{background:#2850c4;border-color:#2850c4}
+</style>
+</head>
+<body>
+
+<svg class="sprite" aria-hidden="true">
+  <symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol>
+  <symbol id="i-brain" viewBox="0 0 24 24"><path d="M12 4a3 3 0 00-6 .8A3 3 0 004 10a3 3 0 002 5 3 3 0 006 .8zM12 4a3 3 0 016 .8A3 3 0 0120 10a3 3 0 01-2 5 3 3 0 01-6 .8z"/></symbol>
+  <symbol id="i-trash" viewBox="0 0 24 24"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6M8 6V4a2 2 0 012-2h4a2 2 0 012 2v2"/></symbol>
+  <symbol id="i-auto" viewBox="0 0 24 24"><path d="M13 2L4 14h7l-1 8 9-12h-7l1-8z"/></symbol>
+  <symbol id="i-team" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 00-3-3.9M16 3.1a4 4 0 010 7.8"/></symbol>
+  <symbol id="i-devices" viewBox="0 0 24 24"><rect x="2" y="4" width="14" height="10" rx="2"/><path d="M5 18h8"/><rect x="18" y="9" width="4" height="11" rx="1"/></symbol>
+</svg>
+
+<header>
+  <div class="app">
+    <svg class="mark" viewBox="0 0 32 32" aria-hidden="true">
+      <rect width="32" height="32" rx="7" fill="#2f5fe0"/>
+      <path d="M16 4 28 16 16 28 4 16z" fill="#fff"/>
+      <circle cx="16" cy="16" r="3.6" fill="#2f5fe0"/>
+    </svg>
+    <span class="appname">SOTA<span class="tld">.ai</span></span>
+  </div>
+  <div class="date" id="date"></div>
+</header>
+
+<div class="intro">
+  <h1>Your morning update</h1>
+  <p>Six changes overnight, across every AI tool you use. Nothing needs doing
+     &mdash; this is just so you know.</p>
+</div>
+
+<div class="body">
+
+  <div class="sect">Claude can now do two more things</div>
+  <div class="card">
+    <div class="item" style="animation-delay:.04s">
+      <span class="ic"><svg><use href="#i-plus"/></svg></span>
+      <div class="txt">
+        <h3>Handling pushback on price</h3>
+        <p>When a client pushes back on cost, Claude now works out what's really bothering them before it writes a reply.</p>
+        <div class="how"><svg><use href="#i-auto"/></svg> Happens on its own &mdash; nothing to switch on</div>
+      </div>
+    </div>
+    <div class="item" style="animation-delay:.12s">
+      <span class="ic"><svg><use href="#i-plus"/></svg></span>
+      <div class="txt">
+        <h3>Checking before it writes to someone new</h3>
+        <p>Claude will look for a real reason to be getting in touch, rather than writing something that could go to anybody.</p>
+        <div class="how"><svg><use href="#i-auto"/></svg> Happens on its own &mdash; nothing to switch on</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">Claude learned four things about your work</div>
+  <div class="card">
+    <div class="item" style="animation-delay:.2s">
+      <span class="ic"><svg><use href="#i-brain"/></svg></span>
+      <div class="txt">
+        <h3>From yesterday's conversations</h3>
+        <p>Two rules about what you will and won't discount, one competitor you keep coming up against, and the fact that you prefer short emails.</p>
+        <div class="how">You never have to explain these again</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">Your team taught Claude something</div>
+  <div class="card">
+    <div class="item" style="animation-delay:.24s">
+      <span class="ic"><svg><use href="#i-team"/></svg></span>
+      <div class="txt">
+        <h3>Three colleagues hit the same objection</h3>
+        <p>Dana, Yotam and Noa each worked out part of how to answer it. Claude
+          combined what all three learned into one approach and gave it to
+          everyone &mdash; including you.</p>
+        <div class="how"><svg><use href="#i-auto"/></svg> Built from 3 people's work &mdash; already active</div>
+      </div>
+    </div>
+    <div class="item" style="animation-delay:.3s">
+      <span class="ic"><svg><use href="#i-team"/></svg></span>
+      <div class="txt">
+        <h3>Your best-performing follow-up is now everyone's</h3>
+        <p>The way you structure a second email got the best replies on the
+          team this month, so it became the default for the whole firm.</p>
+        <div class="how">Shared from your work &mdash; you were credited</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">One thing was put away</div>
+  <div class="card">
+    <div class="item" style="animation-delay:.28s">
+      <span class="ic"><svg><use href="#i-trash"/></svg></span>
+      <div class="txt">
+        <h3>An email template you never used</h3>
+        <p>It hasn't come up once in the last month, so we've set it aside to keep Claude quick. It comes straight back if you ever need it.</p>
+        <div class="how">Nothing was deleted</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sect">Yesterday</div>
+  <div class="stats">
+    <div class="stat"><b>41 min</b><span>you didn't spend re-explaining</span></div>
+    <div class="stat"><b>12</b><span>things Claude remembered</span></div>
+    <div class="stat"><b>7</b><span>abilities working for you</span></div>
+  </div>
+
+  <div class="ask crossnote">
+    <span class="ic"><svg><use href="#i-devices"/></svg></span>
+    <div>
+      <b>Applied everywhere, not just here</b>
+      <p>These changes are live in Claude, Codex and Cursor. You don't set
+         anything up a second time.</p>
+    </div>
+  </div>
+
+  <div class="ask">
+    <b>Anything here look wrong?</b>
+    <p>Tell Claude in your next conversation and it will correct itself. You don't need to come back to this window.</p>
+  </div>
+
+</div>
+
+<footer>
+  <span class="meta">Example data</span>
+  <div class="btns">
+    <button onclick="window.close()">Close</button>
+    <button class="primary" onclick="window.close()">Start working</button>
+  </div>
+</footer>
+
+<script>
+const d = new Date();
+document.getElementById('date').textContent =
+  d.toLocaleDateString(undefined,{weekday:'long', month:'short', day:'numeric'});
+</script>
+</body>
+</html>
