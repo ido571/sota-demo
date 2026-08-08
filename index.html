@@ -305,18 +305,21 @@ a.btn { text-decoration: none; display: inline-block; }
    so it gets a real target rather than a footnote */
 .nextmorning {
   display: flex; align-items: center; gap: 12px;
-  margin-top: 14px; padding: 13px 15px;
-  background: var(--surface); border: 1px solid var(--border2);
+  margin-bottom: 4px; padding: 13px 15px;
+  /* amber, not accent: this is sample content, and it must not be mistaken
+     for the real result of the setup that just ran */
+  background: #fdf9ef; border: 1px solid #e6d3a3;
   border-radius: var(--r); text-decoration: none; color: inherit;
   transition: .12s;
 }
-.nextmorning:hover { border-color: var(--accent); background: var(--accent-bg); }
-.nmico { color: var(--accent); flex: none; display: flex; }
+.nextmorning:hover { border-color: var(--warn); background: #fbf4e3; }
+.nmico { color: var(--warn); flex: none; display: flex; }
+.nmtext b .badge { margin-left: 6px; vertical-align: 1px; }
 .nmtext { flex: 1; min-width: 0; }
 .nmtext b { display: block; font-size: 13px; font-weight: 600; }
 .nmtext span { color: var(--text2); font-size: 12px; }
 .nmgo { color: var(--text3); flex: none; display: flex; }
-.nextmorning:hover .nmgo { color: var(--accent); }
+.nextmorning:hover .nmgo { color: var(--warn); }
 
 /* the always-on option is the one thing a non-technical user must
    actually decide, so it gets more room than a normal checkbox row */
@@ -492,6 +495,17 @@ a.btn { text-decoration: none; display: inline-block; }
         <p id="donesub"></p>
       </header>
 
+      <a class="nextmorning" href="morning.html">
+        <span class="nmico"><svg><use href="#i-clock"/></svg></span>
+        <span class="nmtext">
+          <b>Preview tomorrow morning <span class="badge hook">sample</span></b>
+          <span>A made-up example of the daily update: what Claude learned
+            overnight, what your team taught it, and what it stopped using.
+            None of it is your data.</span>
+        </span>
+        <span class="nmgo"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+
       <div class="sect">What was set up</div>
       <div class="outcomes" id="installed"></div>
 
@@ -508,17 +522,6 @@ a.btn { text-decoration: none; display: inline-block; }
 
       <div class="sect">What happens next</div>
       <table class="tbl cols" id="timeline"><tbody></tbody></table>
-
-      <a class="nextmorning" href="morning.html">
-        <span class="nmico"><svg><use href="#i-clock"/></svg></span>
-        <span class="nmtext">
-          <b>See tomorrow morning</b>
-          <span>What Claude learned overnight, what your team taught it, and
-            what it stopped using.</span>
-        </span>
-        <span class="nmgo"><svg><use href="#i-arrow"/></svg></span>
-      </a>
-
       <p class="note" id="donenote"></p>
     </section>
   </main>
