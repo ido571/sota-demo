@@ -84,6 +84,10 @@ button{font:inherit;font-size:12.5px;cursor:pointer;padding:6px 15px;border-radi
 button:hover{background:var(--surface2);border-color:var(--text3)}
 button.primary{background:var(--accent);border-color:var(--accent);color:#fff;font-weight:500}
 button.primary:hover{background:#2850c4;border-color:#2850c4}
+.btnlink{font-size:12.5px;padding:6px 15px;border-radius:var(--r);
+  border:1px solid var(--border2);background:var(--surface);color:var(--text);
+  text-decoration:none;display:inline-flex;align-items:center;transition:.12s}
+.btnlink:hover{background:var(--surface2);border-color:var(--text3)}
 </style>
 </head>
 <body>
@@ -210,7 +214,7 @@ button.primary:hover{background:#2850c4;border-color:#2850c4}
 <footer>
   <span class="meta">Example data</span>
   <div class="btns">
-    <button onclick="window.close()">Close</button>
+    <a class="btnlink" href="index.html">Back to setup</a>
     <button class="primary" onclick="window.close()">Start working</button>
   </div>
 </footer>

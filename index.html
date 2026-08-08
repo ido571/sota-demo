@@ -301,6 +301,23 @@ a.btn { text-decoration: none; display: inline-block; }
 .btn.small { padding: 4px 12px; font-size: 12px; flex: none; }
 .btn.added { color: var(--pos); border-color: #b4ddc0; background: #eefaf1; opacity: 1; }
 
+/* the one link out of the setup flow — the overnight loop is the product,
+   so it gets a real target rather than a footnote */
+.nextmorning {
+  display: flex; align-items: center; gap: 12px;
+  margin-top: 14px; padding: 13px 15px;
+  background: var(--surface); border: 1px solid var(--border2);
+  border-radius: var(--r); text-decoration: none; color: inherit;
+  transition: .12s;
+}
+.nextmorning:hover { border-color: var(--accent); background: var(--accent-bg); }
+.nmico { color: var(--accent); flex: none; display: flex; }
+.nmtext { flex: 1; min-width: 0; }
+.nmtext b { display: block; font-size: 13px; font-weight: 600; }
+.nmtext span { color: var(--text2); font-size: 12px; }
+.nmgo { color: var(--text3); flex: none; display: flex; }
+.nextmorning:hover .nmgo { color: var(--accent); }
+
 /* the always-on option is the one thing a non-technical user must
    actually decide, so it gets more room than a normal checkbox row */
 .optbox .optlabel em { line-height: 1.55; display: block; margin-top: 4px; }
@@ -491,6 +508,17 @@ a.btn { text-decoration: none; display: inline-block; }
 
       <div class="sect">What happens next</div>
       <table class="tbl cols" id="timeline"><tbody></tbody></table>
+
+      <a class="nextmorning" href="morning.html">
+        <span class="nmico"><svg><use href="#i-clock"/></svg></span>
+        <span class="nmtext">
+          <b>See tomorrow morning</b>
+          <span>What Claude learned overnight, what your team taught it, and
+            what it stopped using.</span>
+        </span>
+        <span class="nmgo"><svg><use href="#i-arrow"/></svg></span>
+      </a>
+
       <p class="note" id="donenote"></p>
     </section>
   </main>
